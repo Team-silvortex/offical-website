@@ -1,16 +1,27 @@
-import Image from 'next/image'
-import Sidebar from '../components/SideBar.client' 
-import Logo from 'theTypes/components/Logo.client'
-import { Content } from 'next/font/google'
-import MainContent from '../components/MainContent.client'
-import Bottombar from '../components/Bottombar.client'
-export default function Home() {
+import { Hero } from "../components/Hero";
+import { Section } from "../components/Section";
+
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Logo></Logo>
-      <MainContent></MainContent>
-      <Sidebar></Sidebar>
-      <Bottombar></Bottombar>
-    </main>
-  )
+    <>
+      <Hero />
+      <Section
+        title="🪶 Our Vision"
+        content={`Team Silvortox is an independent research collective 
+dedicated to building the Semantic Era of programming.`}
+      />
+      <Section
+        title="🧩 Nuis Ecosystem"
+        content={`NuisLang — The semantics-centric programming language that unifies computation beyond hardware.
+Vulpoya — Smart Language Server.
+Yalivia — Semantic Runtime and System Library.`}
+      />
+      <Section
+        title="🧠 Philosophy"
+        content={`Semantics > Syntax.
+Compiler as Agent.
+AI as Co-author.`}
+      />
+    </>
+  );
 }

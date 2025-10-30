@@ -1,22 +1,25 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import type { Metadata } from "next";
+import "../app/globals.css";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: 'Team silvortex',
-  description: 'the offical website of the team silvortex',
-}
+  title: "Team Silvortox",
+  description: "Building the Semantic Era of Programming",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className="bg-black text-gray-100 font-sans">
+        <Navbar />
+        <main className="min-h-screen">{children}</main>
+        <Footer />
+      </body>
     </html>
-  )
+  );
 }
