@@ -24,6 +24,20 @@ export function Hero() {
             Read the notes
           </Link>
         </div>
+        <div className="hero-status-strip" aria-label="System focus">
+          <div className="status-chip">
+            <span className="status-dot" />
+            Network observability
+          </div>
+          <div className="status-chip">
+            <span className="status-dot" />
+            Orchestration layers
+          </div>
+          <div className="status-chip">
+            <span className="status-dot" />
+            Simulation systems
+          </div>
+        </div>
         <ul className="hero-principles">
           {principles.map((principle) => (
             <li key={principle}>{principle}</li>
@@ -34,6 +48,7 @@ export function Hero() {
       <div className="hero-visual">
         <div className="hero-orbit" />
         <div className="hero-panel">
+          <div className="hero-panel-grid" />
           <Image
             src={Logo}
             alt={`${brandName} symbol`}
@@ -48,6 +63,10 @@ export function Hero() {
               These projects evolve independently, with different maturity levels
               and without an enforced unification layer.
             </p>
+            <div className="hero-panel-readout">
+              <span>MODE: EXPERIMENTAL</span>
+              <span>STATE: ACTIVE</span>
+            </div>
           </div>
         </div>
       </div>
