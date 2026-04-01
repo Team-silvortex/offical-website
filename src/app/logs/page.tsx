@@ -1,20 +1,35 @@
 import { PageIntro } from "../../components/PageIntro";
 import { Section } from "../../components/Section";
-import { logEntries } from "../../components/siteData";
+import { logEntries, logThemes } from "../../components/siteData";
 
 export default function LogsPage() {
   return (
     <>
       <PageIntro
         eyebrow="Dev Logs"
-        title="Research notes, build journals, and conceptual checkpoints."
-        description="We use dev logs to document how the ecosystem is evolving: not just what changed, but what we learned and what remains unresolved."
+        title="Build logs for systems work, not content marketing."
+        description="The log stream exists to capture implementation movement, behavior under experimentation, and the decisions that show up while building difficult systems."
       />
 
       <Section
         eyebrow="Topics"
-        title="What shows up in the log stream."
-        description="The logs are meant to make the work inspectable from the inside."
+        title="What belongs in the logs."
+        description="The goal is to leave behind records that are useful to future implementation work, debugging, and design correction."
+      >
+        <div className="timeline-grid">
+          {logThemes.map((theme) => (
+            <article key={theme.label} className="timeline-card">
+              <h2 className="card-title">{theme.label}</h2>
+              <p className="timeline-copy">{theme.description}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      <Section
+        eyebrow="Current notes"
+        title="The project set is still early, uneven, and intentionally independent."
+        description="These are the operating assumptions behind the current work and the kind of details that should keep showing up in future entries."
       >
         <div className="timeline-grid">
           {logEntries.map((entry) => (

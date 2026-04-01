@@ -44,10 +44,57 @@ export const logEntries = [
   },
 ];
 
+export const logThemes = [
+  {
+    label: "Runtime observations",
+    description:
+      "Notes on what the system actually did under load, isolation boundaries, and unexpected execution behavior.",
+  },
+  {
+    label: "Control surface design",
+    description:
+      "Experiments around orchestration models, operator control, failure handling, and inspectable execution paths.",
+  },
+  {
+    label: "Implementation drift",
+    description:
+      "Places where the implementation diverged from the intended model and what that revealed about the system.",
+  },
+  {
+    label: "Simulation findings",
+    description:
+      "Results from mock generation, replay environments, and controlled experiments used to probe edge cases.",
+  },
+];
+
 export const collaborationTracks = [
   "Network systems and observability",
   "Distributed orchestration and control planes",
   "Languages, runtimes, and programmable computation",
+];
+
+export const collaborationTraits = [
+  {
+    label: "You like systems that expose behavior",
+    description:
+      "You care about instrumentation, failure modes, internal state, and making complex execution legible.",
+  },
+  {
+    label: "You can work without product theater",
+    description:
+      "You are comfortable building early systems that may still be rough, incomplete, or highly experimental.",
+  },
+  {
+    label: "You care about technical substance",
+    description:
+      "You prefer hard behavior, correctness, and control over polished framing and generic platform language.",
+  },
+];
+
+export const collaborationNotes = [
+  "Projects may move independently and at uneven speeds.",
+  "The current goal is to make strong systems, not force a shared framework.",
+  "Good collaboration usually starts with a concrete technical problem, not a vague role.",
 ];
 
 export const projectGroups: ProjectGroup[] = [
