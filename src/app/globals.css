@@ -4,6 +4,8 @@
 
 @layer base {
   :root {
+    --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", "SFMono-Regular", "Consolas", monospace;
     --bg: #050b14;
     --bg-soft: rgba(10, 18, 33, 0.88);
     --panel: rgba(7, 17, 32, 0.76);
