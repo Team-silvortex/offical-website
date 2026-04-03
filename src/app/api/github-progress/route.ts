@@ -17,6 +17,16 @@ interface GitHubRepo {
   fork: boolean;
 }
 
+interface GitHubCommitResponse {
+  html_url: string;
+  commit: {
+    message: string;
+    author: {
+      date: string;
+    } | null;
+  };
+}
+
 function getProjectStatus(updatedAt: string | null, archived: boolean) {
   if (archived) {
     return "archived";
@@ -39,6 +49,56 @@ function getProjectStatus(updatedAt: string | null, archived: boolean) {
   }
 
   return "quiet";
+}
+
+function getProjectTrend(updatedAt: string | null) {
+  if (!updatedAt) {
+    return "no-signal";
+  }
+
+  const days = Math.floor(
+    (Date.now() - new Date(updatedAt).getTime()) / (1000 * 60 * 60 * 24),
+  );
+
+  if (days <= 14) {
+    return "rising";
+  }
+
+  if (days <= 60) {
+    return "steady";
+  }
+
+  return "cooling";
+}
+
+async function fetchLatestCommit(
+  repoName: string,
+  headers: HeadersInit,
+) {
+  const response = await fetch(
+    `https://api.github.com/repos/${githubOrg}/${repoName}/commits?per_page=1`,
+    {
+      headers,
+      next: { revalidate: 1800 },
+    },
+  );
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const commits = (await response.json()) as GitHubCommitResponse[];
+  const latestCommit = commits[0];
+
+  if (!latestCommit) {
+    return null;
+  }
+
+  return {
+    message: latestCommit.commit.message.split("\n")[0],
+    url: latestCommit.html_url,
+    date: latestCommit.commit.author?.date ?? null,
+  };
 }
 
 export async function GET() {
@@ -65,8 +125,23 @@ export async function GET() {
     }
 
     const repos = (await response.json()) as GitHubRepo[];
+    const trackedRepoNames = new Set(
+      projectGroups.flatMap((group) =>
+        group.projects.map((project) => (project.githubRepo ?? project.name).toLowerCase()),
+      ),
+    );
+    const trackedRepos = repos.filter((repo) =>
+      trackedRepoNames.has(repo.name.toLowerCase()),
+    );
+    const latestCommits = await Promise.all(
+      trackedRepos.map(async (repo) => [
+        repo.name.toLowerCase(),
+        await fetchLatestCommit(repo.name, headers),
+      ] as const),
+    );
+    const latestCommitMap = Object.fromEntries(latestCommits);
     const repoMap = Object.fromEntries(
-      repos.map((repo) => [
+      trackedRepos.map((repo) => [
         repo.name.toLowerCase(),
         {
           name: repo.name,
@@ -81,6 +156,8 @@ export async function GET() {
           archived: repo.archived,
           fork: repo.fork,
           status: getProjectStatus(repo.pushed_at ?? repo.updated_at, repo.archived),
+          trend: getProjectTrend(repo.pushed_at ?? repo.updated_at),
+          latestCommit: latestCommitMap[repo.name.toLowerCase()] ?? null,
         },
       ]),
     );

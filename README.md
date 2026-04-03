@@ -1,34 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is the Silvortex official website, built with [Next.js](https://nextjs.org/).
 
-## Getting Started
+## Development
 
-First, run the development server:
+Run the local development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm ci
+npm run build
+npm run start
+```
 
-## Learn More
+## Bare Metal Deploy
 
-To learn more about Next.js, take a look at the following resources:
+The repo includes a simple standalone deployment script:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+chmod +x scripts/deploy-bare.sh
+PORT=3000 ./scripts/deploy-bare.sh
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This will:
 
-## Deploy on Vercel
+- install dependencies with `npm ci`
+- build the app in Next.js standalone mode
+- copy production files into `.deploy/current`
+- stop the previous process if it exists
+- start the app in the background with `nohup`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Useful environment variables:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `PORT`
+- `HOSTNAME`
+- `DEPLOY_ROOT`
+- `GITHUB_TOKEN`
+
+Logs are written to `.deploy/app.log`.
+
+## Container Deploy
+
+Build and run with Docker Compose:
+
+```bash
+docker compose up -d --build
+```
+
+Optional environment variables:
+
+- `PORT`
+- `GITHUB_TOKEN`
+
+The container listens on port `3000` internally.
+
+## GitHub Progress
+
+The site can read public repository activity from the `Team-silvortex` GitHub organization.
+If you need higher API limits, provide `GITHUB_TOKEN` in production.

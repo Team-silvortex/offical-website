@@ -16,6 +16,12 @@ interface RepoProgress {
   archived: boolean;
   fork: boolean;
   status: "active" | "monitoring" | "quiet" | "archived" | "unknown";
+  trend: "rising" | "steady" | "cooling" | "no-signal";
+  latestCommit: {
+    message: string;
+    url: string;
+    date: string | null;
+  } | null;
 }
 
 interface ProjectProgress {
@@ -65,6 +71,23 @@ function getStatusLabel(status: RepoProgress["status"], hasRepo: boolean) {
       return "Archived";
     default:
       return "Unknown";
+  }
+}
+
+function getTrendLabel(trend: RepoProgress["trend"], hasRepo: boolean) {
+  if (!hasRepo) {
+    return "No public signal";
+  }
+
+  switch (trend) {
+    case "rising":
+      return "Momentum rising";
+    case "steady":
+      return "Steady activity";
+    case "cooling":
+      return "Cooling down";
+    default:
+      return "No signal";
   }
 }
 
@@ -148,6 +171,7 @@ export function GitHubProgressBoard() {
           <div className="progress-grid">
             {group.projects.map((project) => {
               const status = getStatusLabel(project.repo?.status ?? "unknown", Boolean(project.repo));
+              const trend = getTrendLabel(project.repo?.trend ?? "no-signal", Boolean(project.repo));
 
               return (
                 <article key={project.name} className="progress-card">
@@ -171,6 +195,17 @@ export function GitHubProgressBoard() {
 
                   <p className="card-copy">{project.description}</p>
 
+                  <div className="progress-trend-row">
+                    <div className="progress-trend-track" aria-hidden="true">
+                      <span
+                        className={`progress-trend-fill ${
+                          project.repo ? `trend-${project.repo.trend}` : "trend-no-signal"
+                        }`}
+                      />
+                    </div>
+                    <span className="progress-trend-label">{trend}</span>
+                  </div>
+
                   <div className="progress-stats">
                     <div className="progress-stat">
                       <span>Repo</span>
@@ -189,6 +224,20 @@ export function GitHubProgressBoard() {
                       <strong>{project.repo?.openIssues ?? 0}</strong>
                     </div>
                   </div>
+
+                  {project.repo?.latestCommit ? (
+                    <div className="progress-commit">
+                      <span>Latest commit</span>
+                      <a
+                        href={project.repo.latestCommit.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {project.repo.latestCommit.message}
+                      </a>
+                      <strong>{formatDate(project.repo.latestCommit.date)}</strong>
+                    </div>
+                  ) : null}
 
                   {project.repo ? (
                     <a

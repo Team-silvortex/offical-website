@@ -673,6 +673,56 @@
     margin-top: 18px;
   }
 
+  .progress-trend-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .progress-trend-track {
+    position: relative;
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+  }
+
+  .progress-trend-fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+  }
+
+  .trend-rising {
+    width: 92%;
+  }
+
+  .trend-steady {
+    width: 64%;
+  }
+
+  .trend-cooling {
+    width: 34%;
+  }
+
+  .trend-no-signal {
+    width: 12%;
+    opacity: 0.45;
+  }
+
+  .progress-trend-label {
+    min-width: 118px;
+    color: var(--muted);
+    font-family: var(--font-mono), monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+
   .progress-stat {
     padding: 12px;
     border-radius: 16px;
@@ -709,6 +759,35 @@
   .progress-placeholder {
     color: var(--muted);
     line-height: 1.7;
+  }
+
+  .progress-commit {
+    display: grid;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(84, 166, 255, 0.12);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .progress-commit span {
+    color: var(--muted);
+    font-family: var(--font-mono), monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .progress-commit a {
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .progress-commit strong {
+    color: var(--muted);
+    font-size: 0.84rem;
+    font-weight: 500;
   }
 
   .site-footer {
