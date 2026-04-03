@@ -1,3 +1,4 @@
+import { GitHubProgressBoard } from "../../components/GitHubProgressBoard";
 import { PageIntro } from "../../components/PageIntro";
 import { Section } from "../../components/Section";
 import { projectGroups } from "../../components/siteData";
@@ -33,6 +34,14 @@ export default function ProjectsPage() {
           </div>
         </Section>
       ))}
+
+      <Section
+        eyebrow="Live GitHub progress"
+        title="Repository signals are read from the public organization."
+        description="If a project already has a public repo under Team-silvortex, this board will show its current GitHub activity. If not, it stays marked as not public yet."
+      >
+        <GitHubProgressBoard />
+      </Section>
     </>
   );
 }

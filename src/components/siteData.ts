@@ -1,10 +1,11 @@
-interface ProjectEntry {
+export interface ProjectEntry {
   name: string;
   shortName?: string;
+  githubRepo?: string;
   description: string;
 }
 
-interface ProjectGroup {
+export interface ProjectGroup {
   name: string;
   description: string;
   projects: ProjectEntry[];
@@ -19,6 +20,7 @@ export const navLinks = [
 ];
 
 export const brandName = "Silvortex";
+export const githubOrg = "Team-silvortex";
 
 export const principles = [
   "Observable systems",
@@ -106,24 +108,28 @@ export const projectGroups: ProjectGroup[] = [
       {
         name: "cyanrex-lab",
         shortName: "cy",
+        githubRepo: "cyanrex-lab",
         description:
           "Browser-based eBPF experimentation platform with isolation and observability.",
       },
       {
         name: "gewyvern",
         shortName: "ge",
+        githubRepo: "gewyvern",
         description:
           "DSL-driven eBPF engine for protocol-agnostic network flow modeling, designed for dynamic analysis and debugging.",
       },
       {
         name: "leserpent",
         shortName: "le",
+        githubRepo: "leserpent",
         description:
           "Orchestration layer for managing distributed gewyvern agents and coordinating execution workflows.",
       },
       {
         name: "etragon",
         shortName: "et",
+        githubRepo: "etragon",
         description:
           "ML-driven network flow simulation and mock generation system for controlled experimentation.",
       },
@@ -136,16 +142,19 @@ export const projectGroups: ProjectGroup[] = [
     projects: [
       {
         name: "nuislang",
+        githubRepo: "nuislang",
         description:
           "AOT-first system language for unified heterogeneous computation via YIR.",
       },
       {
         name: "yalivia",
+        githubRepo: "yalivia",
         description:
           "Lightweight JIT runtime for executing and optimizing YIR with adaptive behavior.",
       },
       {
         name: "vulpoya",
+        githubRepo: "vulpoya",
         description:
           "Static analyzer and verifier for the nuis/YIR ecosystem, focused on correctness and constraints.",
       },
@@ -158,6 +167,7 @@ export const projectGroups: ProjectGroup[] = [
     projects: [
       {
         name: "kyuubiki",
+        githubRepo: "kyuubiki",
         description:
           "Distributed FEM computation platform with a web-based interface and orchestration layer.",
       },

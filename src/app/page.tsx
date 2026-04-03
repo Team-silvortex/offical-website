@@ -1,4 +1,5 @@
 import { Hero } from "../components/Hero";
+import { GitHubProgressBoard } from "../components/GitHubProgressBoard";
 import { Section } from "../components/Section";
 import { logEntries, projectGroups } from "../components/siteData";
 
@@ -68,6 +69,14 @@ export default function HomePage() {
             </article>
           ))}
         </div>
+      </Section>
+
+      <Section
+        eyebrow="Live progress"
+        title="Public repository activity can be read directly from GitHub."
+        description="This board maps your project registry against the Team-silvortex organization so the site can reflect what is public, recently updated, or still not visible yet."
+      >
+        <GitHubProgressBoard />
       </Section>
 
       <Section
